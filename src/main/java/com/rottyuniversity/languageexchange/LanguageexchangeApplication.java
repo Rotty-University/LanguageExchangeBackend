@@ -13,11 +13,7 @@ public class LanguageexchangeApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(LanguageexchangeApplication.class, args);
-
-		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		String p = pe.encode("hello");
-		System.out.println(p);
-		System.out.println(pe.matches("hello", p));
+		
 	}
 
 	@Bean
