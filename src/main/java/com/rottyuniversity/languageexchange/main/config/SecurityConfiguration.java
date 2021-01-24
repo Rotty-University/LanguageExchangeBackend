@@ -1,4 +1,4 @@
-package com.rottyuniversity.languageexchange.config;
+package com.rottyuniversity.languageexchange.main.config;
 
 import com.rottyuniversity.languageexchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

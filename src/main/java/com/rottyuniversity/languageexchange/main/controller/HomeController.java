@@ -1,14 +1,15 @@
-package com.rottyuniversity.languageexchange.controller;
+package com.rottyuniversity.languageexchange.main.controller;
 
-import com.rottyuniversity.languageexchange.model.JwtRequest;
-import com.rottyuniversity.languageexchange.model.JwtResponse;
+import com.rottyuniversity.languageexchange.jwt.model.JwtRequest;
+import com.rottyuniversity.languageexchange.jwt.model.JwtResponse;
 import com.rottyuniversity.languageexchange.service.UserService;
-import com.rottyuniversity.languageexchange.utility.JWTUtility;
+import com.rottyuniversity.languageexchange.jwt.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String home() {
