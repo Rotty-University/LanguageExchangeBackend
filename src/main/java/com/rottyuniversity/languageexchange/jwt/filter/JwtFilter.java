@@ -1,6 +1,6 @@
 package com.rottyuniversity.languageexchange.jwt.filter;
 
-import com.rottyuniversity.languageexchange.service.UserService;
+import com.rottyuniversity.languageexchange.user.service.UserService;
 import com.rottyuniversity.languageexchange.jwt.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
