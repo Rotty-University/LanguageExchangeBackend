@@ -1,4 +1,4 @@
-package com.rottyuniversity.languageexchange.model;
+package com.rottyuniversity.languageexchange.jwt.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
