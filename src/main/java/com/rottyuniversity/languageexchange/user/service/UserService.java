@@ -25,4 +25,8 @@ public class UserService implements UserDetailsService {
     public int createNewUser(String username, String rawPassword, String emailAddress, Set<String> nl, Set<String> ll) {
         return dao.createNewUser(username, rawPassword, emailAddress, nl, ll);
     }
+
+    public int deleteUser(String username) {
+        return dao.deleteUser(username);
+    }
 }

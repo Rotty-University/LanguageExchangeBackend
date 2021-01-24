@@ -49,4 +49,18 @@ public class UserDAO {
         // successfully created a new user
         return 0;
     }
+
+    public int deleteUser(String username) {
+        User userToDelete = mongoTemplate.findOne(new Query(where("username").is(username)), User.class);
+
+        if (userToDelete == null) {
+            // username does not exist
+            return -1;
+        }
+
+        boolean isSuccessful = mongoTemplate.remove(userToDelete).getDeletedCount() == 1;
+
+        // successfully created a new user
+        return isSuccessful ? 0 : -2;
+    }
 }
