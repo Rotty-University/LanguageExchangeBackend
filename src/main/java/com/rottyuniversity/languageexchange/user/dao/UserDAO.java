@@ -1,38 +1,35 @@
 package com.rottyuniversity.languageexchange.user.dao;
 
+import com.rottyuniversity.languageexchange.repositories.UserRepository;
 import com.rottyuniversity.languageexchange.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-
 @Repository
 public class UserDAO {
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public String getPasswordByUsername(String username) {
-        User user = mongoTemplate.findOne(new Query(where("username").is(username)), User.class);
+        User user = userRepository.findByUsername(username);
 
         return user.getPassword();
     }
 
     public int createNewUser(String username, String rawPassword, String emailAddress, Set<String> nl, Set<String> ll) {
-        if (mongoTemplate.findOne(new Query(where("username").is(username)), User.class) != null) {
+        if (userRepository.findByUsername(username) != null) {
             // username exists
             return -1;
         }
 
-        if (mongoTemplate.findOne(new Query(where("emailAddress").is(emailAddress)), User.class) != null) {
+        if (userRepository.findByEmailAddress(emailAddress) != null) {
             // email address exists
             return -2;
         }
@@ -44,23 +41,24 @@ public class UserDAO {
         user.setNativeLanguages(nl);
         user.setLearningLanguages(ll);
 
-        mongoTemplate.insert(user);
+        userRepository.save(user);
 
         // successfully created a new user
         return 0;
     }
 
     public int deleteUser(String username) {
-        User userToDelete = mongoTemplate.findOne(new Query(where("username").is(username)), User.class);
+        User userToDelete = userRepository.findByUsername(username);
 
         if (userToDelete == null) {
             // username does not exist
             return -1;
         }
 
-        boolean isSuccessful = mongoTemplate.remove(userToDelete).getDeletedCount() == 1;
+        String id = userToDelete.getId();
+        userRepository.delete(userToDelete);
 
         // successfully created a new user
-        return isSuccessful ? 0 : -2;
+        return userRepository.existsById(id) ? -2 : 0;
     }
 }

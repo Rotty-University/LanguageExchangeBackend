@@ -3,3 +3,7 @@ server:
 
 jwt:
   secret: mludswagsimps
+
+amazon:
+  dynamodb:
+    endpoint: https://dynamodb.us-east-1.amazonaws.com
